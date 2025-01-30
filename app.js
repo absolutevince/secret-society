@@ -8,12 +8,18 @@ const registerRouter = require("./router/registerRouter");
 
 const app = express();
 
+// set ejs as view engine
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// parse req.body
+app.use(express.urlencoded({ extended: false }));
+
+/**
+ * ROUTES
+ */
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
-
 app.use("/register", registerRouter);
 
 const port = process.env.PORT || 3000;

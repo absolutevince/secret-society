@@ -14,16 +14,8 @@ const accounts = `
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         firstname VARCHAR(255),
         lastname VARCHAR(255),
-        notes INTEGER
-    );
-`;
-
-const notes = `
-    CREATE TABLE IF NOT EXISTS accounts (
-        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        title VARCHAR(255),
-        description VARCHAR(255),
-        likes INTEGER
+        posts INTEGER,
+        created DATE
     );
 `;
 
@@ -36,7 +28,6 @@ const notes = `
 	await client.connect();
 	await client.query(users);
 	await client.query(accounts);
-	await client.query(notes);
 	await client.end();
 	console.log("Database init: DONE");
 })();

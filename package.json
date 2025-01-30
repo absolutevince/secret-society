@@ -1,9 +1,10 @@
 {
-	"name": "who-note",
+	"name": "secret-society",
 	"version": "1.0.0",
 	"main": "app.js",
 	"scripts": {
-		"build-dev": "createdb whonote && node db/init.js",
+		"init-db": "createdb secsoc && node db/init.js",
+		"reset-db": "dropdb secsoc && createdb secsoc && node db/init.js",
 		"serve": "node app.js --watch"
 	},
 	"keywords": [],
