@@ -1,0 +1,19 @@
+{
+	"name": "who-note",
+	"version": "1.0.0",
+	"main": "app.js",
+	"scripts": {
+		"build-dev": "createdb whonote && node db/init.js",
+		"serve": "node app.js --watch"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"dotenv": "^16.4.7",
+		"ejs": "^3.1.10",
+		"express": "^4.21.2",
+		"pg": "^8.13.1"
+	}
+}
