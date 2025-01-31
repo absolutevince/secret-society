@@ -11,10 +11,18 @@ const users = `
 
 const accounts = `
     CREATE TABLE IF NOT EXISTS accounts (
-        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        id INTEGER,
         firstname VARCHAR(255),
         lastname VARCHAR(255),
-        posts INTEGER,
+        created DATE
+    );
+`;
+
+const posts = `
+    CREATE TABLE IF NOT EXISTS posts (
+        id INTEGER,
+        title VARCHAR(255),
+        description VARCHAR(255),
         created DATE
     );
 `;
@@ -28,6 +36,7 @@ const accounts = `
 	await client.connect();
 	await client.query(users);
 	await client.query(accounts);
+	await client.query(posts);
 	await client.end();
 	console.log("Database init: DONE");
 })();

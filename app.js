@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const { title } = require("./lib/variables");
 const indexRouter = require("./router/indexRouter");
 const loginRouter = require("./router/loginRouter");
 const registerRouter = require("./router/registerRouter");
