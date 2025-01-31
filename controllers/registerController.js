@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
-
-const { title } = require("../lib/variables");
+const variables = require("../lib/variables");
 
 const { registrationQuery } = require("../db/query");
 const {
@@ -13,7 +12,10 @@ const {
 
 const registerController = (function () {
 	function get(req, res) {
-		res.render("register", { title: title, errors: null });
+		if (req.isAuthenticated()) {
+			return res.redirect("/");
+		}
+		res.render("register", { title: variables.title, errors: null });
 	}
 
 	const post = (() => {
@@ -24,11 +26,14 @@ const registerController = (function () {
 			lastnameValidator,
 			async (req, res) => {
 				const errors = validationResult(req);
+
 				if (!errors.isEmpty()) {
-					console.log(errors);
 					return res
 						.status(400)
-						.render("register", { title: title, errors: errors });
+						.render("register", {
+							title: variables.title,
+							errors: errors.array(),
+						});
 				}
 				await registrationQuery({
 					username: req.body.username,
@@ -36,7 +41,7 @@ const registerController = (function () {
 					firstname: req.body.firstname,
 					lastname: req.body.lastname,
 				});
-				res.redirect("/");
+				res.redirect("/login");
 			},
 		];
 	})();

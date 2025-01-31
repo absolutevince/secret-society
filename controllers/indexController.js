@@ -1,8 +1,17 @@
-const { title } = require("../lib/variables");
+const { queryGet } = require("../db/query");
+const variables = require("../lib/variables");
 
 const indexController = (function () {
-	function get(req, res) {
-		res.render("index", { title: title, user: undefined });
+	async function get(req, res) {
+		if (!req.isAuthenticated()) {
+			return res.redirect("/login");
+		}
+		const userAcc = await queryGet.accountById(req.user.id);
+		res.render("index", {
+			title: variables.title,
+			user: userAcc,
+		});
+		console.log(req.session);
 	}
 
 	return { get };

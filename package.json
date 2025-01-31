@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"main": "app.js",
 	"scripts": {
-		"init-db": "createdb secsoc && node db/init.js",
-		"reset-db": "dropdb secsoc && createdb secsoc && node db/init.js",
+		"init-db": "createdb secsoc && node db/init.js psql secsoc < node_modules/connect-pg-simple/table.sql",
+		"reset-db": "dropdb secsoc && createdb secsoc && node db/init.js && psql secsoc < node_modules/connect-pg-simple/table.sql",
 		"serve": "node app.js --watch",
 		"serve-nodemon": "nodemon app.js"
 	},
@@ -14,11 +14,14 @@
 	"description": "",
 	"dependencies": {
 		"bcrypt": "^5.1.1",
+		"connect-pg-simple": "^10.0.0",
 		"dotenv": "^16.4.7",
 		"ejs": "^3.1.10",
 		"express": "^4.21.2",
 		"express-session": "^1.18.1",
 		"express-validator": "^7.2.1",
+		"passport": "^0.7.0",
+		"passport-local": "^1.0.0",
 		"pg": "^8.13.1"
 	}
 }

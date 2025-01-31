@@ -20,20 +20,44 @@ async function registrationQuery({ username, password, firstname, lastname }) {
 }
 
 const queryGet = (() => {
+	async function user(username) {
+		const { rows } = await pool.query(`
+			SELECT * FROM users WHERE username = '${username}'
+		`);
+
+		return rows[0];
+	}
+
+	async function accountById(id) {
+		const { rows } = await pool.query(`
+			SELECT * FROM accounts WHERE id = '${id}'
+		`);
+
+		return rows[0];
+	}
+
+	async function userById(id) {
+		const { rows } = await pool.query(`
+			SELECT * FROM users WHERE id = '${id}'
+		`);
+
+		return rows[0];
+	}
+
 	async function userId(username) {
 		const { rows } = await pool.query(
 			`SELECT id FROM users WHERE username = '${username}'`
 		);
-		return await rows[0].id;
+		return rows[0].id;
 	}
 
 	async function userName(id) {
 		const { rows } = await pool.query(
 			`SELECT username FROM users WHERE id = '${id}'`
 		);
-		return await rows[0].username;
+		return rows[0].username;
 	}
-	return { userId, userName };
+	return { userId, userName, user, userById, accountById };
 })();
 
 const queryFind = (() => {
@@ -41,7 +65,7 @@ const queryFind = (() => {
 		const { rows } = await pool.query(
 			`SELECT id FROM users WHERE username = '${id}'`
 		);
-		if (await rows[0].id) return true;
+		if (rows[0].id) return true;
 		return false;
 	}
 
