@@ -8,11 +8,18 @@
 	<body>
 		<%- include("partials/header", {title}) %>
 		<div class="wrapper">
-			<h2>
-				<%= club.name%> <% if(admin) {%>
-				<span>(admin)</span>
-				<% } %>
-			</h2>
+			<h2><%= club.name %></h2>
+			<a href="/create-post/<%= club.id %>/<%= account.id %>">Post</a>
+			<div>
+				<ul>
+					<% if (posts) { %> <% for(let i = 0; i < posts.length; i++) { %>
+					<li>
+						<p><%= posts[i].message %></p>
+						<span><%= posts[i].author.firstname %></span>
+					</li>
+					<% }%> <% }%>
+				</ul>
+			</div>
 		</div>
 	</body>
 </html>

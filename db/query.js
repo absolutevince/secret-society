@@ -32,7 +32,19 @@ const queryInsert = (() => {
 		);
 	}
 
-	return { registerUser, registerClub };
+	async function post({ accountId, clubId, message }) {
+		await pool.query(
+			"INSERT INTO	posts (club_id, account_id, message, created) VALUES ($1,$2,$3,$4)",
+			[
+				clubId,
+				accountId,
+				message,
+				new Intl.DateTimeFormat("en-CA").format(new Date()),
+			]
+		);
+	}
+
+	return { registerUser, registerClub, post };
 })();
 
 // GET
@@ -51,6 +63,14 @@ const queryGet = (() => {
 		`);
 
 		return rows[0];
+	}
+
+	async function accountNameById(id) {
+		const { rows } = await pool.query(`
+			SELECT firstname, lastname FROM accounts WHERE user_id = ${id}
+		`);
+
+		return { firstname: rows[0].firstname, lastname: rows[0].lastname };
 	}
 
 	async function userById(id) {
@@ -82,13 +102,22 @@ const queryGet = (() => {
 		return rows[0];
 	}
 
+	async function posts(clubId) {
+		const { rows } = await pool.query(
+			`SELECT * FROM posts WHERE club_id = '${clubId}'`
+		);
+		return rows;
+	}
+
 	return {
 		userId,
 		userName,
 		user,
 		userById,
 		accountById,
+		accountNameById,
 		club,
+		posts,
 	};
 })();
 

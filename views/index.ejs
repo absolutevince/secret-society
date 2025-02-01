@@ -12,6 +12,7 @@
 				Welcome <% if(account !== undefined){ %> <%= account.firstname %> <% }
 				else { %> Stranger <%}%>
 			</h2>
+			<a href="/create-club/<%= account.id %>">Create a Club</a>
 			<a href="/logout">Logout</a>
 		</div>
 	</body>

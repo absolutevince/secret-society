@@ -35,8 +35,7 @@ const posts = `
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         club_id INTEGER,
         account_id INTEGER,
-        title VARCHAR(255),
-        description VARCHAR(255),
+        message VARCHAR(255),
         created DATE
     );
 `;
