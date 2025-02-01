@@ -4,17 +4,23 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><%= title %></title>
+		<link rel="stylesheet" href="/reset.css" />
+		<link rel="stylesheet" href="/style.css" />
 	</head>
 	<body>
 		<%- include("partials/header", {title}) %>
-		<div class="wrapper">
+		<main class="REGISTER">
 			<h2>Register</h2>
-			<div>
-				<% if(errors) { %> <% for(let i = 0; i < errors.length; i++) { %>
+
+			<% if(errors) { %>
+			<div class="ERROR">
+				<% for(let i = 0; i < errors.length; i++) { %>
 				<p><%= errors[i].msg %></p>
-				<%}%> <%}%>
+				<%}%>
 			</div>
-			<form action="/register" method="POST">
+			<%}%>
+
+			<form class="REGISTER_form" action="/register" method="POST">
 				<div>
 					<label for="username">username</label>
 					<input type="text" name="username" id="username" required />
@@ -23,16 +29,15 @@
 					<label for="password">password</label>
 					<input type="password" name="password" id="password" required />
 				</div>
-				<fieldset>
-					<div>
-						<label for="firstname">Firstnasme</label>
-						<input type="text" name="firstname" id="firstname" required />
-					</div>
-					<div>
-						<label for="lastname">Lastname</label>
-						<input type="text" name="lastname" id="lastname" />
-					</div>
-				</fieldset>
+				<div>
+					<label for="firstname">First name</label>
+					<input type="text" name="firstname" id="firstname" required />
+				</div>
+				<div>
+					<label for="lastname">Last name</label>
+					<input type="text" name="lastname" id="lastname" />
+				</div>
+
 				<div>
 					<button type="submit">Register</button>
 				</div>
@@ -40,6 +45,6 @@
 			<div>
 				<p>Already have an account? <a href="/login">Log-in</a></p>
 			</div>
-		</div>
+		</main>
 	</body>
 </html>

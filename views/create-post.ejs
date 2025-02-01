@@ -4,10 +4,12 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><%= title %></title>
+		<link rel="stylesheet" href="/reset.css" />
+		<link rel="stylesheet" href="/style.css" />
 	</head>
 	<body>
 		<%- include("partials/header", {title}) %>
-		<div class="wrapper">
+		<main class="wrapper">
 			<h2>Post</h2>
 			<% if(error) { %>
 			<div>
@@ -23,6 +25,6 @@
 				</div>
 			</form>
 			<a href="/club/<%= clubId %>">back</a>
-		</div>
+		</main>
 	</body>
 </html>

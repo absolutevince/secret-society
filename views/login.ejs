@@ -4,17 +4,15 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><%= title %></title>
+		<link rel="stylesheet" href="/reset.css" />
+		<link rel="stylesheet" href="/style.css" />
 	</head>
 	<body>
 		<%- include("partials/header", {title}) %>
-		<div class="wrapper">
+		<main class="LOGIN">
 			<h2>Login</h2>
-			<% if(error) { %>
-			<div>
-				<p><%= error %></p>
-			</div>
-			<%}%>
-			<form action="/login" method="POST">
+			<%- include("partials/error", {error})%>
+			<form class="LOGIN_form" action="/login" method="POST">
 				<div>
 					<label for="username">username</label>
 					<input type="text" name="username" id="username" required />
@@ -28,6 +26,6 @@
 				</div>
 			</form>
 			<p>Need an account? <a href="/register">Register</a></p>
-		</div>
+		</main>
 	</body>
 </html>

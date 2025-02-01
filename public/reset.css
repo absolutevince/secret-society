@@ -1,0 +1,37 @@
+:root {
+	--clr-primary: #a8a29e;
+	--clr-secondary: #78716c;
+	--clr-secondary-2: #1c1917;
+	--clr-accent: #eab308;
+
+	--clr-txt-primary: #172554;
+	--clr-txt-secondary: #c6ccd9;
+}
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+}
+
+input {
+	padding: 0.3em 0.5em;
+}
+
+ul {
+	list-style: none;
+}
+
+button {
+	cursor: pointer;
+	padding: 0.3em 0.8em;
+}
+
+html {
+	background-color: var(--clr-primary);
+	color: var(--clr-txt-primary);
+}

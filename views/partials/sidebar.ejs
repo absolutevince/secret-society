@@ -1,0 +1,12 @@
+<div class="SIDEBAR">
+	<a class="button" href="/create-club/<%= account.id %>">Create a Club</a>
+	<div>
+		<ul class="SIDEBAR_list">
+			<% if(allClubs) { %> <% for(let i = 0; i < allClubs.length; i++) { %>
+			<li>
+				<a href="/club/<%= allClubs[i].id %>"><%= allClubs[i].name %></a>
+			</li>
+			<%}%> <%} %>
+		</ul>
+	</div>
+</div>

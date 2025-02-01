@@ -5,6 +5,7 @@ const loginController = (function () {
 		res.render("login", {
 			title: variables.title,
 			error: variables.errorMesssage, // global variables
+			account: "",
 		});
 		// if not cleared the error Message will appear all the time
 		variables.errorMesssage = "";

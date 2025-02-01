@@ -4,26 +4,28 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><%= title %></title>
+		<link rel="stylesheet" href="/reset.css" />
+		<link rel="stylesheet" href="/style.css" />
 	</head>
 	<body>
-		<%- include("partials/header", {title}) %>
-		<div class="wrapper">
-			<h2>Create a Secret Society</h2>
-			<% if(error) { %>
-			<div>
-				<p><%= error %></p>
-			</div>
-			<%}%>
-			<form action="/create-club/<%= accountId %>" method="POST">
-				<div>
-					<label for="name">name</label>
-					<input type="text" name="name" id="name" required />
-				</div>
-				<div>
-					<button type="submit">Create</button>
-				</div>
+		<%- include("partials/header", {title, account}) %>
+		<main class="CREATE-CLUB">
+			<h2 class="CREATE-CLUB_title">Create a Club</h2>
+			<%- include("partials/error", {error})%>
+			<form
+				class="CREATE-CLUB_form"
+				action="/create-club/<%= accountId %>"
+				method="POST"
+			>
+				<input type="text" name="name" id="name" required />
+
+				<button type="submit">Create</button>
 			</form>
-			<a href="/">back</a>
-		</div>
+			<button class="back-button">back</button>
+		</main>
+		<script>
+			const backButton = document.querySelector(".back-button");
+			backButton.addEventListener("click", () => window.history.back());
+		</script>
 	</body>
 </html>

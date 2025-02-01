@@ -4,22 +4,13 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><%= title %></title>
+		<link rel="stylesheet" href="/reset.css" />
+		<link rel="stylesheet" href="/style.css" />
 	</head>
 	<body>
-		<%- include("partials/header", {title}) %>
-		<div class="wrapper">
-			<h2><%= account.firstname %></h2>
-			<a href="/create-club/<%= account.id %>">Create a Club</a>
-			<div>
-				<ul>
-					<% if(clubs) { %> <% for(let i = 0; i < clubs.length; i++) { %>
-					<li>
-						<a href="/club/<%= clubs[i].id %>"><%= clubs[i].name %></a>
-					</li>
-					<%}%> <%} %>
-				</ul>
-			</div>
-			<a href="/logout">Logout</a>
-		</div>
+		<%- include("partials/header", {title,account}) %>
+		<main class="MAIN">
+			<%- include("partials/sidebar", {title, account}) %>
+		</main>
 	</body>
 </html>

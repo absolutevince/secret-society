@@ -8,20 +8,22 @@ const indexController = (function () {
 
 	async function indexGet(req, res) {
 		const account = await queryGet.accountById(req.user.id);
-		const clubs = await queryGet.allClubs();
+		const allClubs = await queryGet.allClubs();
 
 		res.render("index", {
 			title: variables.title,
 			account,
-			clubs,
+			allClubs,
 		});
 	}
 
 	async function createClubGet(req, res) {
+		const account = await queryGet.accountById(req.user.id);
 		res.render("create-club", {
 			title: variables.title,
 			error: variables.errorMesssage,
 			accountId: req.params.accountId,
+			account,
 		});
 
 		variables.errorMesssage = "";
@@ -29,6 +31,7 @@ const indexController = (function () {
 
 	async function clubGet(req, res) {
 		const account = await queryGet.accountById(req.user.id);
+		const allClubs = await queryGet.allClubs();
 		const club = await queryGet.club(req.params.clubId);
 		const posts = await queryGet.posts(req.params.clubId);
 		const position = await getClubPosition(account.id, req.params.clubId);
@@ -39,6 +42,7 @@ const indexController = (function () {
 			title: variables.title,
 			club,
 			position,
+			allClubs,
 			account,
 			posts: formattedPosts,
 		});

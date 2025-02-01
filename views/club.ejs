@@ -4,38 +4,52 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><%= title %></title>
+		<link rel="stylesheet" href="/reset.css" />
+		<link rel="stylesheet" href="/style.css" />
 	</head>
 	<body>
-		<%- include("partials/header", {title}) %>
-		<div class="wrapper">
-			<h2><%= club.name %></h2>
-			<form
-				action="/create-post/<%= club.id %>/<%= account.id %>"
-				method="POST"
-			>
-				<input type="text" name="message" />
-				<button>Post</button>
-			</form>
-			<% if(position === "non-member") { %>
-			<form action="/join-club/<%= club.id %>/<%= account.id %>" method="post">
-				<button type="submit">Join</button>
-			</form>
-			<%} else { %>
-			<p><%= position %></p>
-			<%}%>
-
-			<div>
-				<ul>
-					<% if (posts) { %> <% for(let i = 0; i < posts.length; i++) { %>
-					<li>
-						<p><%= posts[i].message %></p>
-						<% if(position !== "non-member"){ %>
-						<span><%= posts[i].author.firstname %></span>
-						<% } else { %> <span>[ hidden ]</span> <% } %>
-					</li>
-					<% }%> <% }%>
-				</ul>
+		<%- include("partials/header", {title, account}) %>
+		<main class="MAIN">
+			<%- include("partials/sidebar", {title, account}) %>
+			<div class="CLUB">
+				<section class="CLUB_header">
+					<h2><%= club.name %></h2>
+					<p class="CLUB_header-position"><%= position %></p>
+				</section>
+				<div class="CLUB_messages">
+					<ul>
+						<% if (posts) { %> <% for(let i = 0; i < posts.length; i++) { %>
+						<li class="CLUB_messages-message">
+							<p class="CLUB_messages-message-name">
+								<% if(position !== "non-member"){ %> <%=
+								posts[i].author.firstname %> : <% } else { %> [ hidden ] <% } %>
+							</p>
+							<p class="CLUB_messages-message-text"><%= posts[i].message %></p>
+						</li>
+						<% }%> <% }%>
+					</ul>
+				</div>
+				<div class="CLUB_input">
+					<div>
+						<% if(position !== "non-member") { %>
+						<form
+							action="/create-post/<%= club.id %>/<%= account.id %>"
+							method="POST"
+						>
+							<input type="text" name="message" />
+							<button>Post</button>
+						</form>
+						<%}%> <% if(position === "non-member") { %>
+						<form
+							action="/join-club/<%= club.id %>/<%= account.id %>"
+							method="post"
+						>
+							<button class="button" type="submit">Join</button>
+						</form>
+						<%} %>
+					</div>
+				</div>
 			</div>
-		</div>
+		</main>
 	</body>
 </html>

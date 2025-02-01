@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const variables = require("../lib/variables");
 
-const { queryInsert } = require("../db/query");
+const { queryInsert, queryGet } = require("../db/query");
 const {
 	usernameValidation,
 	validationResult,
@@ -12,7 +12,11 @@ const {
 
 const registerController = (function () {
 	function get(req, res) {
-		res.render("register", { title: variables.title, errors: null });
+		res.render("register", {
+			title: variables.title,
+			errors: null,
+			account: "",
+		});
 	}
 
 	const post = [
@@ -27,6 +31,7 @@ const registerController = (function () {
 				return res.status(400).render("register", {
 					title: variables.title,
 					errors: errors.array(),
+					account: "",
 				});
 			}
 			await queryInsert.user({

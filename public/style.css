@@ -1,0 +1,192 @@
+/* GLOBAL */
+
+.button {
+	cursor: pointer;
+	background-color: var(--clr-accent);
+	padding: 0.5em 1em;
+	display: inline-block;
+	text-decoration: none;
+	border: none;
+}
+
+.HEADER {
+	background: linear-gradient(
+		to bottom right,
+		var(--clr-primary),
+		var(--clr-secondary)
+	);
+	padding: 1rem;
+	color: var(--clr-txt-primary);
+	box-shadow: 0 0 8px 1px var(--clr-secondary-2);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+	height: 6rem;
+}
+
+.HEADER_logo {
+	text-decoration: none;
+}
+
+.HEADER_logo:hover {
+	text-decoration: underline;
+}
+
+.HEADER_account-name {
+	font-size: 2rem;
+}
+
+.HEADER_profile {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.SIDEBAR {
+	padding: 1rem;
+	width: 30%;
+	max-width: 25rem;
+	border-right: 1px solid;
+	display: flex;
+	flex-direction: column;
+}
+
+.SIDEBAR_list {
+	font-size: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+	font-size: 1.5rem;
+}
+
+.SIDEBAR_list > * {
+	padding: 1rem;
+}
+
+.MAIN > * {
+	height: calc(100vh - 8rem);
+}
+
+.MAIN {
+	display: flex;
+}
+
+.CLUB {
+	padding: 1rem;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.CLUB_header {
+	display: flex;
+	background-color: var(--clr-secondary);
+	align-items: center;
+	justify-content: space-between;
+	gap: 4rem;
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+
+.CLUB_header h2 {
+	font-size: 2rem;
+}
+
+.CLUB_header-position {
+	background-color: var(--clr-secondary-2);
+	color: var(--clr-txt-secondary);
+	padding: 1rem;
+}
+
+.CLUB_messages {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	overflow-y: hidden;
+}
+
+.CLUB_messages ul {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	overflow-y: scroll;
+}
+
+.CLUB_messages-message {
+	background-color: var(--clr-secondary);
+}
+
+.CLUB_messages-message-name {
+	background-color: var(--clr-secondary-2);
+	color: var(--clr-txt-secondary);
+	padding: 0.5rem 1rem;
+}
+
+.CLUB_messages-message-text {
+	padding: 0.5rem 1rem;
+}
+
+.CLUB_input {
+	background-color: var(--clr-secondary);
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+	gap: 3rem;
+	margin-top: 1rem;
+}
+
+.CLUB_input div {
+	padding: 1rem;
+	margin: 0 auto;
+	width: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.CLUB_input input {
+	width: 80ch;
+	padding: 1rem;
+}
+
+.CLUB_input button {
+	padding: 1rem;
+}
+
+.CREATE-CLUB,
+.LOGIN,
+.REGISTER {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.CREATE-CLUB_form,
+.LOGIN_form,
+.REGISTER_form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0 0 8px 1px var(--clr-secondary-2);
+	gap: 0.5rem;
+	border-radius: 0.5rem;
+	padding: 1rem;
+}
+
+.CREATE-CLUB input,
+.LOGIN_form input,
+.REGISTER_form input {
+	padding: 0.5em 1em;
+}
+
+.ERROR {
+	background-color: #991b1b;
+	padding: 1rem;
+	color: var(--clr-txt-secondary);
+	text-shadow: 0 0 1px #333;
+	border-radius: 0.5rem;
+}

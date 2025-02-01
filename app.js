@@ -8,7 +8,6 @@ const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./lib/passportConfig");
 const pool = require("./db/pool");
-const { authenticateUser } = require("./lib/middlewares/auth");
 const PgSession = require("connect-pg-simple")(session);
 
 const app = express();
@@ -18,6 +17,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // middlewares
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
 app.use(

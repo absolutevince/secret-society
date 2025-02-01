@@ -1,3 +1,9 @@
-<header>
-  <h1><%= title %></h1>
+<header class="HEADER">
+	<h1><a class="HEADER_logo" href="/"><%= title %></a></h1>
+	<div class="HEADER_profile">
+		<% if(account) { %>
+		<p class="HEADER_account-name"><%= account.firstname %></p>
+		<a href="/logout">Logout</a>
+		<% }%>
+	</div>
 </header>
