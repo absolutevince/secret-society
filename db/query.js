@@ -2,7 +2,7 @@ const pool = require("./pool");
 
 // INSERT
 const queryInsert = (() => {
-	async function registerUser({ username, password, firstname, lastname }) {
+	async function user({ username, password, firstname, lastname }) {
 		// adds user's creds into the 'users' table
 		await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
 			username,
@@ -20,15 +20,10 @@ const queryInsert = (() => {
 		);
 	}
 
-	async function registerClub({ accountId, name, passcode }) {
+	async function club({ accountId, name }) {
 		await pool.query(
-			"INSERT INTO	clubs (account_id, name, passcode, created) VALUES ($1,$2,$3,$4)",
-			[
-				accountId,
-				name,
-				passcode,
-				new Intl.DateTimeFormat("en-CA").format(new Date()),
-			]
+			"INSERT INTO	clubs (account_id, name, created) VALUES ($1,$2,$3)",
+			[accountId, name, new Intl.DateTimeFormat("en-CA").format(new Date())]
 		);
 	}
 
@@ -44,7 +39,19 @@ const queryInsert = (() => {
 		);
 	}
 
-	return { registerUser, registerClub, post };
+	async function member({ accountId, clubId, position }) {
+		await pool.query(
+			"INSERT INTO members (account_id, club_id, position, joined_date) VALUES ($1,$2,$3,$4)",
+			[
+				accountId,
+				clubId,
+				position,
+				new Intl.DateTimeFormat("en-CA").format(new Date()),
+			]
+		);
+	}
+
+	return { user, club, post, member };
 })();
 
 // GET
@@ -102,9 +109,26 @@ const queryGet = (() => {
 		return rows[0];
 	}
 
+	async function newestClub() {
+		const { rows } = await pool.query(`SELECT * FROM clubs`);
+		return rows[rows.length - 1];
+	}
+
+	async function allClubs() {
+		const { rows } = await pool.query(`SELECT * FROM clubs`);
+		return rows;
+	}
+
 	async function posts(clubId) {
 		const { rows } = await pool.query(
 			`SELECT * FROM posts WHERE club_id = '${clubId}'`
+		);
+		return rows;
+	}
+
+	async function members(clubId) {
+		const { rows } = await pool.query(
+			`SELECT * FROM members WHERE club_id = ${clubId}`
 		);
 		return rows;
 	}
@@ -117,7 +141,10 @@ const queryGet = (() => {
 		accountById,
 		accountNameById,
 		club,
+		allClubs,
 		posts,
+		members,
+		newestClub,
 	};
 })();
 
@@ -144,9 +171,11 @@ const queryFind = (() => {
 
 // SET
 const querySet = (() => {
-	async function joinedClubs() {}
+	async function clubMembers() {
+		// REMOVE this?
+	}
 
-	return { joinedClubs };
+	return { clubMembers };
 })();
 
 module.exports = { queryGet, queryFind, queryInsert, querySet };

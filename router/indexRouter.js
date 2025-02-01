@@ -12,10 +12,7 @@ indexRouter.get(
 	indexController.createClubGet
 );
 indexRouter.get("/club/:clubId", authenticateUser, indexController.clubGet);
-indexRouter.get(
-	"/create-post/:clubId/:accountId",
-	indexController.createPostGet
-);
+indexRouter.get("/create-post/:clubId", indexController.createPostGet);
 
 // POST
 indexRouter.post("/create-club/:accountId", indexController.createClubPost);
@@ -23,5 +20,6 @@ indexRouter.post(
 	"/create-post/:clubId/:accountId",
 	indexController.createPostPost
 );
+indexRouter.post("/join-club/:clubId/:accountId", indexController.joinClubPost);
 
 module.exports = indexRouter;

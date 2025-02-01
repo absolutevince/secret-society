@@ -9,13 +9,29 @@
 		<%- include("partials/header", {title}) %>
 		<div class="wrapper">
 			<h2><%= club.name %></h2>
-			<a href="/create-post/<%= club.id %>/<%= account.id %>">Post</a>
+			<form
+				action="/create-post/<%= club.id %>/<%= account.id %>"
+				method="POST"
+			>
+				<input type="text" name="message" />
+				<button>Post</button>
+			</form>
+			<% if(position === "non-member") { %>
+			<form action="/join-club/<%= club.id %>/<%= account.id %>" method="post">
+				<button type="submit">Join</button>
+			</form>
+			<%} else { %>
+			<p><%= position %></p>
+			<%}%>
+
 			<div>
 				<ul>
 					<% if (posts) { %> <% for(let i = 0; i < posts.length; i++) { %>
 					<li>
 						<p><%= posts[i].message %></p>
+						<% if(position !== "non-member"){ %>
 						<span><%= posts[i].author.firstname %></span>
+						<% } else { %> <span>[ hidden ]</span> <% } %>
 					</li>
 					<% }%> <% }%>
 				</ul>

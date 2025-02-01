@@ -6,7 +6,7 @@ const users = `
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         username VARCHAR(255),
         password VARCHAR(255)
-    );
+    )
 `;
 
 const accounts = `
@@ -17,7 +17,7 @@ const accounts = `
         lastname VARCHAR(255),
         joined_clubs_id INTEGER,
         created DATE
-    );
+    )
 `;
 
 const clubs = `
@@ -25,7 +25,6 @@ const clubs = `
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         account_id INTEGER,
         name VARCHAR(255),
-        passcode VARCHAR(255),
         created DATE
     )
 `;
@@ -37,7 +36,16 @@ const posts = `
         account_id INTEGER,
         message VARCHAR(255),
         created DATE
-    );
+    )
+`;
+
+const members = `
+    CREATE TABLE IF NOT EXISTS members (
+        account_id INTEGER,
+        club_id INTEGER,
+        position TEXT,
+        joined_date DATE
+    )
 `;
 
 (async function () {
@@ -51,6 +59,7 @@ const posts = `
 	await client.query(accounts);
 	await client.query(posts);
 	await client.query(clubs);
+	await client.query(members);
 	await client.end();
 	console.log("Database init: DONE");
 })();

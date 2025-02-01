@@ -1,5 +1,6 @@
 const { queryGet, queryInsert } = require("../db/query");
 const formatPost = require("../lib/formatPost");
+const getClubPosition = require("../lib/getClubPosition");
 const variables = require("../lib/variables");
 
 const indexController = (function () {
@@ -7,10 +8,12 @@ const indexController = (function () {
 
 	async function indexGet(req, res) {
 		const account = await queryGet.accountById(req.user.id);
+		const clubs = await queryGet.allClubs();
 
 		res.render("index", {
 			title: variables.title,
-			account: account,
+			account,
+			clubs,
 		});
 	}
 
@@ -28,16 +31,14 @@ const indexController = (function () {
 		const account = await queryGet.accountById(req.user.id);
 		const club = await queryGet.club(req.params.clubId);
 		const posts = await queryGet.posts(req.params.clubId);
-		let admin;
-		if (club) {
-			admin = account.id === club.account_id;
-		}
+		const position = await getClubPosition(account.id, req.params.clubId);
+
 		const formattedPosts = await formatPost(posts);
 
 		res.render("club", {
 			title: variables.title,
 			club,
-			admin,
+			position,
 			account,
 			posts: formattedPosts,
 		});
@@ -65,15 +66,27 @@ const indexController = (function () {
 	}
 
 	async function createClubPost(req, res) {
-		await queryInsert.registerClub({
+		await queryInsert.club({
 			accountId: req.params.accountId,
 			name: req.body.name,
-			passcode: req.body.passcode,
 		});
 
-		const club = await queryGet.club(req.params.accountId, req.params.id);
-		console.log(club);
+		const club = await queryGet.newestClub();
+		await queryInsert.member({
+			accountId: req.params.accountId,
+			clubId: club.id,
+			position: "admin",
+		});
 		res.redirect(`/club/${club.id}`);
+	}
+
+	async function joinClubPost(req, res) {
+		await queryInsert.member({
+			clubId: req.params.clubId,
+			accountId: req.params.accountId,
+			position: "member",
+		});
+		res.redirect(`/club/${req.params.clubId}`);
 	}
 
 	return {
@@ -83,6 +96,7 @@ const indexController = (function () {
 		clubGet,
 		createPostGet,
 		createPostPost,
+		joinClubPost,
 	};
 })();
 

@@ -29,7 +29,7 @@ const registerController = (function () {
 					errors: errors.array(),
 				});
 			}
-			await queryInsert.registerUser({
+			await queryInsert.user({
 				username: req.body.username,
 				password: await bcrypt.hash(req.body.password, 10),
 				firstname: req.body.firstname,

@@ -8,11 +8,17 @@
 	<body>
 		<%- include("partials/header", {title}) %>
 		<div class="wrapper">
-			<h2>
-				Welcome <% if(account !== undefined){ %> <%= account.firstname %> <% }
-				else { %> Stranger <%}%>
-			</h2>
+			<h2><%= account.firstname %></h2>
 			<a href="/create-club/<%= account.id %>">Create a Club</a>
+			<div>
+				<ul>
+					<% if(clubs) { %> <% for(let i = 0; i < clubs.length; i++) { %>
+					<li>
+						<a href="/club/<%= clubs[i].id %>"><%= clubs[i].name %></a>
+					</li>
+					<%}%> <%} %>
+				</ul>
+			</div>
 			<a href="/logout">Logout</a>
 		</div>
 	</body>
