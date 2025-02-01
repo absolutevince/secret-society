@@ -11,16 +11,27 @@ const users = `
 
 const accounts = `
     CREATE TABLE IF NOT EXISTS accounts (
-        id INTEGER,
+        userid INTEGER,
         firstname VARCHAR(255),
         lastname VARCHAR(255),
+        joined_club_ids INTEGER[],
         created DATE
     );
 `;
 
+const clubs = `
+    CREATE TABLE IF NOT EXISTS clubs (
+        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        userid INTEGER,
+        name VARCHAR(255),
+        passcode VARCHAR(255),
+        created DATE
+    )
+`;
+
 const posts = `
     CREATE TABLE IF NOT EXISTS posts (
-        id INTEGER,
+        clubid INTEGER,
         title VARCHAR(255),
         description VARCHAR(255),
         created DATE
@@ -37,6 +48,7 @@ const posts = `
 	await client.query(users);
 	await client.query(accounts);
 	await client.query(posts);
+	await client.query(clubs);
 	await client.end();
 	console.log("Database init: DONE");
 })();

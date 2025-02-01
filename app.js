@@ -8,6 +8,7 @@ const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./lib/passportConfig");
 const pool = require("./db/pool");
+const { authenticateUser } = require("./lib/middlewares/auth");
 const PgSession = require("connect-pg-simple")(session);
 
 const app = express();
