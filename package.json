@@ -3,10 +3,11 @@
 	"version": "1.0.0",
 	"main": "app.js",
 	"scripts": {
-		"init-db": "createdb secsoc && node db/init.js psql secsoc < node_modules/connect-pg-simple/table.sql",
-		"reset-db": "dropdb secsoc && createdb secsoc && node db/init.js && psql secsoc < node_modules/connect-pg-simple/table.sql",
+		"init-db-dev": "createdb secsoc && node db/init.js && psql secsoc < node_modules/connect-pg-simple/table.sql",
+		"reset-db-dev": "dropdb secsoc && createdb secsoc && node db/init.js && psql secsoc < node_modules/connect-pg-simple/table.sql",
 		"serve": "node app.js --watch",
-		"serve-nodemon": "nodemon app.js"
+		"serve-nodemon": "nodemon app.js",
+		"build": "npm i"
 	},
 	"keywords": [],
 	"author": "",

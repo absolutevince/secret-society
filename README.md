@@ -41,11 +41,12 @@ cd secret-society
 create a .env on the root folder with the format:
 
 ```c
-DB = "socsec" // this should be the name
-DB_PW = <password> // your role password
-ROLE_NAME = <role_name> // your role name
-SESSION_SECRET = <secret> // a secret word/string for database's security
-
+SESSION_SECRET // session secret phrase
+DB_USER // database user
+DB_PW // database password
+DB_HOST // database host
+DB_PORT // database port
+DB_DB // database
 ```
 
 run the following:

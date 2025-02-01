@@ -27,6 +27,7 @@ const registerController = (function () {
 		async (req, res) => {
 			const errors = validationResult(req);
 
+			console.log(errors);
 			if (!errors.isEmpty()) {
 				return res.status(400).render("register", {
 					title: variables.title,
