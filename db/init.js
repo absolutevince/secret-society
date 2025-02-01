@@ -11,10 +11,11 @@ const users = `
 
 const accounts = `
     CREATE TABLE IF NOT EXISTS accounts (
-        userid INTEGER,
+        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        user_id INTEGER,
         firstname VARCHAR(255),
         lastname VARCHAR(255),
-        joined_club_ids INTEGER[],
+        joined_clubs_id INTEGER,
         created DATE
     );
 `;
@@ -22,7 +23,7 @@ const accounts = `
 const clubs = `
     CREATE TABLE IF NOT EXISTS clubs (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        userid INTEGER,
+        account_id INTEGER,
         name VARCHAR(255),
         passcode VARCHAR(255),
         created DATE
@@ -31,7 +32,9 @@ const clubs = `
 
 const posts = `
     CREATE TABLE IF NOT EXISTS posts (
-        clubid INTEGER,
+        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        club_id INTEGER,
+        account_id INTEGER,
         title VARCHAR(255),
         description VARCHAR(255),
         created DATE

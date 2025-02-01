@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const variables = require("../lib/variables");
 
-const { registrationQuery } = require("../db/query");
+const { queryInsert } = require("../db/query");
 const {
 	usernameValidation,
 	validationResult,
@@ -15,31 +15,29 @@ const registerController = (function () {
 		res.render("register", { title: variables.title, errors: null });
 	}
 
-	const post = (() => {
-		return [
-			usernameValidation,
-			passwordValidation,
-			firstnameValidator,
-			lastnameValidator,
-			async (req, res) => {
-				const errors = validationResult(req);
+	const post = [
+		usernameValidation,
+		passwordValidation,
+		firstnameValidator,
+		lastnameValidator,
+		async (req, res) => {
+			const errors = validationResult(req);
 
-				if (!errors.isEmpty()) {
-					return res.status(400).render("register", {
-						title: variables.title,
-						errors: errors.array(),
-					});
-				}
-				await registrationQuery({
-					username: req.body.username,
-					password: await bcrypt.hash(req.body.password, 10),
-					firstname: req.body.firstname,
-					lastname: req.body.lastname,
+			if (!errors.isEmpty()) {
+				return res.status(400).render("register", {
+					title: variables.title,
+					errors: errors.array(),
 				});
-				res.redirect("/login");
-			},
-		];
-	})();
+			}
+			await queryInsert.registerUser({
+				username: req.body.username,
+				password: await bcrypt.hash(req.body.password, 10),
+				firstname: req.body.firstname,
+				lastname: req.body.lastname,
+			});
+			res.redirect("/login");
+		},
+	];
 
 	return { get, post };
 })();

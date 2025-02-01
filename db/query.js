@@ -1,23 +1,41 @@
 const pool = require("./pool");
 
-async function registrationQuery({ username, password, firstname, lastname }) {
-	// adds user's creds into the 'users' table
-	await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
-		username,
-		password,
-	]);
+// INSERT
+const queryInsert = (() => {
+	async function registerUser({ username, password, firstname, lastname }) {
+		// adds user's creds into the 'users' table
+		await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
+			username,
+			password,
+		]);
 
-	await pool.query(
-		"INSERT INTO accounts (userid, firstname, lastname,created) VALUES ($1, $2, $3, $4)",
-		[
-			await queryGet.userId(username),
-			firstname,
-			lastname,
-			new Intl.DateTimeFormat("en-CA").format(new Date()), // formats the new data into "YYYY-MM-DD"
-		]
-	);
-}
+		await pool.query(
+			"INSERT INTO accounts (user_id, firstname, lastname,created) VALUES ($1, $2, $3, $4)",
+			[
+				await queryGet.userId(username),
+				firstname,
+				lastname,
+				new Intl.DateTimeFormat("en-CA").format(new Date()), // formats the new data into "YYYY-MM-DD"
+			]
+		);
+	}
 
+	async function registerClub({ accountId, name, passcode }) {
+		await pool.query(
+			"INSERT INTO	clubs (account_id, name, passcode, created) VALUES ($1,$2,$3,$4)",
+			[
+				accountId,
+				name,
+				passcode,
+				new Intl.DateTimeFormat("en-CA").format(new Date()),
+			]
+		);
+	}
+
+	return { registerUser, registerClub };
+})();
+
+// GET
 const queryGet = (() => {
 	async function user(username) {
 		const { rows } = await pool.query(`
@@ -29,7 +47,7 @@ const queryGet = (() => {
 
 	async function accountById(id) {
 		const { rows } = await pool.query(`
-			SELECT * FROM accounts WHERE userid = '${id}'
+			SELECT * FROM accounts WHERE user_id = '${id}'
 		`);
 
 		return rows[0];
@@ -56,9 +74,25 @@ const queryGet = (() => {
 		);
 		return rows[0].username;
 	}
-	return { userId, userName, user, userById, accountById };
+
+	async function club(clubId) {
+		const { rows } = await pool.query(
+			`SELECT * FROM clubs WHERE id = '${clubId}'`
+		);
+		return rows[0];
+	}
+
+	return {
+		userId,
+		userName,
+		user,
+		userById,
+		accountById,
+		club,
+	};
 })();
 
+// FIND
 const queryFind = (() => {
 	async function userId(id) {
 		const { rows } = await pool.query(
@@ -79,4 +113,11 @@ const queryFind = (() => {
 	return { userId, userName };
 })();
 
-module.exports = { registrationQuery, queryGet, queryFind };
+// SET
+const querySet = (() => {
+	async function joinedClubs() {}
+
+	return { joinedClubs };
+})();
+
+module.exports = { queryGet, queryFind, queryInsert, querySet };

@@ -9,10 +9,10 @@
 		<%- include("partials/header", {title}) %>
 		<div class="wrapper">
 			<h2>
-				Welcome <% if(account !== undefined){ %> <%= account.firstname %> <% }
-				else { %> Stranger <%}%>
+				<%= club.name%> <% if(admin) {%>
+				<span>(admin)</span>
+				<% } %>
 			</h2>
-			<a href="/logout">Logout</a>
 		</div>
 	</body>
 </html>
